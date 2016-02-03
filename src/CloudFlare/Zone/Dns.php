@@ -25,16 +25,18 @@ class Dns extends Api {
 	 * @param string  $name    DNS record name
 	 * @param string  $content DNS record content
 	 * @param integer $ttl     Time to live for DNS record. Value of 1 is 'automatic'
+	 * @param bool $proxied    Cloudflare proxied setting.
 	 *
 	 * @return array|mixed
 	 */
-	public function create($zone_identifier, $type, $name, $content, $ttl = 1) {
+	public function create($zone_identifier, $type, $name, $content, $ttl = 1, $proxied = false) {
 
 		$data = [
 			'type' => strtoupper($type),
 			'name' => $name,
 			'content' => $content,
-			'ttl' => $ttl
+			'ttl' => $ttl,
+			'proxied' => $proxied,
 		];
 
 		return $this->post('zones/' . $zone_identifier . '/dns_records', $data);
